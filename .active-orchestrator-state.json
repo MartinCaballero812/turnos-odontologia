@@ -1,0 +1,47 @@
+{
+  "version": 5,
+  "step": "discovery",
+  "owner": "active-orchestrator",
+  "foundation": {
+    "version": 1,
+    "approved_on": "2026-11-22",
+    "order": ["discovery"],
+    "stop_after": "discovery",
+    "resume_condition": "La investigación de mercado se solicita por separado. La fundación solo continúa por pedido del usuario después de esa investigación.",
+    "prerequisites": {
+      "openspec-init": {
+        "status": "done",
+        "outputs": ["openspec/config.yaml", "openspec/changes/", "openspec/specs/", ".agents/skills/", ".claude/skills/"]
+      }
+    },
+    "phases": {
+      "discovery": {
+        "variant": "interview",
+        "status": "in_progress",
+        "requires": [],
+        "outputs": ["docs/discovery/informe-discovery.md", "docs/discovery/checklist-discovery.json"],
+        "market_research": "out_of_scope"
+      },
+      "kb": {
+        "variant": "interview",
+        "status": "pending",
+        "requires": ["discovery"],
+        "inputs": ["docs/discovery/"],
+        "outputs": ["knowledge-base/"]
+      },
+      "visual-design": {"variant": "deferred", "status": "deferred", "requires": [], "outputs": ["design-system/README.md"]},
+      "roadmap": {"variant": "local-markdown", "status": "pending", "requires": ["kb"], "outputs": ["CHANGES.md"]},
+      "task-management": {"status": "skipped", "requires": [], "outputs": []},
+      "team-mode": {"status": "deferred", "requires": [], "outputs": []},
+      "memory-policy": {"variant": "local", "status": "pending", "requires": [], "outputs": []},
+      "find-skill": {"variant": "recommend", "status": "pending", "requires": ["kb"], "outputs": []},
+      "registry": {"variant": "index", "status": "pending", "requires": [], "outputs": [".atl/skill-registry.md"], "versioned": true},
+      "agents": {
+        "variant": "generate",
+        "status": "pending",
+        "requires": ["kb", "roadmap", "registry"],
+        "outputs": ["AGENTS.md", "CLAUDE.md"]
+      }
+    }
+  }
+}

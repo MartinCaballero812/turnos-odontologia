@@ -72,7 +72,7 @@
         {"id": "RN-02", "descripcion": "Cada sillón pertenece a una única sede."},
         {"id": "RN-03", "descripcion": "No se permiten solapamientos por odontólogo ni por sillón asignado."},
         {"id": "RN-04", "descripcion": "La prestación fija la duración del turno; recepción no puede cambiarla en un turno puntual."},
-        {"id": "RN-05", "descripcion": "Los turnos consecutivos requieren una pausa para acondicionamiento, higienización o descanso. El asistente se encarga de preparar espacio, equipo e instrumental. En el MVP la pausa tiene una duración fija dentro del rango de 5 a 10 minutos; el valor exacto se define antes de especificar el change.", "pausa_minutos": {"minimo": 5, "maximo": 10}, "duracion_fija_en_mvp": true, "bloquea": ["odontólogo", "sillón si está asignado"], "aplica_sin_sillon": true},
+        {"id": "RN-05", "descripcion": "Los turnos consecutivos requieren una pausa fija de 10 minutos para acondicionamiento, higienización o descanso. El asistente se encarga de preparar espacio, equipo e instrumental.", "pausa_minutos": 10, "duracion_fija_en_mvp": true, "bloquea": ["odontólogo", "sillón si está asignado"], "aplica_sin_sillon": true},
         {"id": "RN-06", "descripcion": "Cancelar o reprogramar libera el horario anterior y conserva el registro original; la cancelación queda registrada."},
         {"id": "RN-07", "descripcion": "Los horarios se definen por sede, no por profesional."},
         {"id": "RN-08", "descripcion": "Cada odontólogo atiende en una única sede."}
@@ -119,7 +119,6 @@
       "clave": "preguntas_abiertas",
       "estado": "pendiente",
       "preguntas": [
-        "¿Cómo se determina la duración exacta de la pausa dentro del rango confirmado?",
         "¿Cómo se da por finalizado un turno (automático por duración o marcado por el odontólogo)? En el MVP el turno ocupa su franja programada.",
         "¿Cómo consulta el asistente dental los turnos sin sillón, que no aparecen en ninguna agenda de sillón?",
         "¿A qué se asigna cada asistente dental: un odontólogo, un sillón o la sede?",

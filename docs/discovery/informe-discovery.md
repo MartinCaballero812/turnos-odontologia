@@ -43,7 +43,7 @@ Reserva en línea para pacientes, WhatsApp y recordatorios, ficha clínica, cobr
 - Todo turno requiere un odontólogo responsable. El sillón es opcional, por ejemplo en una radiografía en sala de rayos. No se admite un turno con sillón y sin odontólogo. Cada sillón pertenece a una sola sede.
 - No pueden superponerse turnos que comparten odontólogo o sillón asignado.
 - La prestación determina la duración del turno. Recepción no puede modificar esa duración para un turno puntual.
-- Entre turnos consecutivos se reserva una pausa de **5 a 10 minutos** para acondicionamiento, higienización o descanso. El asistente dental se encarga de preparar el espacio y el equipo. La pausa bloquea al odontólogo y al sillón cuando está asignado. También aplica al odontólogo en turnos sin sillón, donde sigue haciendo falta preparar el instrumental. En el MVP la pausa tiene una duración fija dentro de ese rango; el valor exacto se define antes de especificar el change.
+- Entre turnos consecutivos se reserva una pausa fija de **10 minutos** para acondicionamiento, higienización o descanso. El asistente dental se encarga de preparar el espacio y el equipo. La pausa bloquea al odontólogo y al sillón cuando está asignado. También aplica al odontólogo en turnos sin sillón, donde sigue haciendo falta preparar el instrumental.
 - **Caso borde para la futura especificación:** dado un turno existente, cuando se intenta agendar otro que comparte odontólogo o sillón y empieza justo al finalizar el anterior, se rechaza el nuevo turno porque no respeta la pausa obligatoria.
 - Cancelar libera el horario y conserva el registro del turno cancelado. Reprogramar libera el horario anterior y conserva el registro original.
 - Los horarios de atención se definen por sede, no por profesional.
@@ -70,7 +70,6 @@ Pendientes de definir. No se confirmó ninguna integración obligatoria para el 
 
 ## 11. Preguntas abiertas
 
-- ¿Cómo se determina la duración exacta de la pausa dentro del rango de 5 a 10 minutos?
 - ¿Cómo se da por finalizado un turno? Pendiente: si es automático según la duración de la prestación o si el odontólogo lo marca como atendido, y si un turno que termina antes o se extiende modifica la ocupación del sillón y la pausa. En el MVP el turno ocupa su franja programada.
 - ¿Cómo consulta el asistente dental los turnos sin sillón (por ejemplo, radiografías en sala de rayos)? Esos turnos no aparecen en ninguna agenda de sillón y también requieren preparar instrumental.
 - ¿A qué se asigna cada asistente dental: a un odontólogo, a un sillón o a la sede? Esto define qué agenda ve.

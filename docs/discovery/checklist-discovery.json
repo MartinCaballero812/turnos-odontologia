@@ -1,0 +1,128 @@
+{
+  "proyecto": "Turnos Odontología",
+  "metodo": "entrevista",
+  "estado": "confirmado_por_el_usuario",
+  "informe": "informe-discovery.md",
+  "investigacion_mercado": {
+    "estado": "pendiente_por_separado",
+    "fuentes_consultadas_en_esta_fase": [],
+    "minimo_fuentes_a_verificar_manualmente": 5
+  },
+  "puntos": [
+    {
+      "id": 1,
+      "clave": "problema",
+      "estado": "hipotesis",
+      "proceso_actual": ["papel", "planillas", "mensajes"],
+      "fallas_probables": ["Superposiciones por odontólogo o sillón", "Ausencias sin aviso", "Tiempo administrativo perdido en coordinar turnos"],
+      "afectados": ["Recepción", "Odontología"],
+      "pendientes": ["Validar el proceso actual y cuantificar la frecuencia de las fallas y el tiempo administrativo"]
+    },
+    {
+      "id": 2,
+      "clave": "usuarios",
+      "estado": "definido_para_mvp",
+      "roles": [
+        {"rol": "recepcion", "alcance": "sede propia", "acciones": ["crear turnos", "reprogramar turnos", "cancelar turnos", "consultar agenda"]},
+        {"rol": "odontologo", "alcance": "agenda diaria propia", "acciones": ["consultar agenda"]},
+        {"rol": "asistente_dental", "alcance": "agenda diaria del sillón", "acciones": ["consultar agenda"], "proposito": "Preparar instrumental e higienización"},
+        {"rol": "administrador", "cantidad": 1, "alcance": "todas las sedes", "acciones": ["configurar sedes", "configurar sillones", "configurar profesionales", "configurar prestaciones", "configurar usuarios"]}
+      ],
+      "fuera_del_mvp": ["Paciente como usuario", "Edición por parte del asistente", "Bloqueo de horarios por el odontólogo"]
+    },
+    {
+      "id": 3,
+      "clave": "casos_de_uso",
+      "estado": "definido_para_mvp",
+      "casos": [
+        {"rol": "recepcion", "accion": "Crear turno", "resultado": "Evitar conflictos por odontólogo y por sillón asignado"},
+        {"rol": "recepcion", "accion": "Reprogramar turno", "resultado": "Liberar el horario anterior y conservar el registro original"},
+        {"rol": "recepcion", "accion": "Cancelar turno", "resultado": "Liberar el horario y conservar el registro de la cancelación"},
+        {"rol": "odontologo", "accion": "Consultar la agenda diaria propia", "resultado": "Saber qué pacientes atiende y cuándo"},
+        {"rol": "asistente_dental", "accion": "Consultar la agenda diaria del sillón", "resultado": "Preparar el instrumental y acondicionar el espacio"},
+        {"rol": "administrador", "accion": "Configurar sedes, sillones, profesionales, prestaciones y usuarios", "resultado": "Reflejar la operación del consultorio en la agenda"}
+      ]
+    },
+    {
+      "id": 4,
+      "clave": "alternativas_y_competidores",
+      "estado": "pendiente",
+      "alternativas_mencionadas_no_verificadas": ["papel", "planillas", "mensajes"],
+      "competidores_evaluados": []
+    },
+    {
+      "id": 5,
+      "clave": "funcionalidades_necesarias",
+      "estado": "provisional",
+      "funcionalidades": ["Interfaz gráfica", "Gestión de turnos en tres sedes", "Prevención de solapamientos y cumplimiento de la pausa", "Duración por prestación", "Agenda diaria por odontólogo y por sillón", "Configuración de sedes, recursos y usuarios"],
+      "pendientes": ["Contrastar el alcance y su prioridad con la investigación de mercado"]
+    },
+    {
+      "id": 6,
+      "clave": "funcionalidades_opcionales",
+      "estado": "fuera_del_mvp",
+      "funcionalidades": ["Reserva en línea para pacientes", "WhatsApp y recordatorios", "Ficha clínica", "Cobros", "Facturación"]
+    },
+    {
+      "id": 7,
+      "clave": "reglas_de_negocio",
+      "estado": "definido_con_pendientes",
+      "reglas": [
+        {"id": "RN-01", "descripcion": "Todo turno requiere un odontólogo responsable; el sillón es opcional. Un turno con sillón no puede quedar sin odontólogo."},
+        {"id": "RN-02", "descripcion": "Cada sillón pertenece a una única sede."},
+        {"id": "RN-03", "descripcion": "No se permiten solapamientos por odontólogo ni por sillón asignado."},
+        {"id": "RN-04", "descripcion": "La prestación fija la duración del turno; recepción no puede cambiarla en un turno puntual."},
+        {"id": "RN-05", "descripcion": "Los turnos consecutivos requieren una pausa para acondicionamiento, higienización o descanso. El asistente se encarga de preparar espacio, equipo e instrumental.", "pausa_minutos": {"minimo": 5, "maximo": 10}, "bloquea": ["odontólogo", "sillón si está asignado"], "aplica_sin_sillon": true},
+        {"id": "RN-06", "descripcion": "Cancelar o reprogramar libera el horario anterior y conserva el registro original; la cancelación queda registrada."},
+        {"id": "RN-07", "descripcion": "Los horarios se definen por sede, no por profesional."}
+      ],
+      "escenarios_para_futura_especificacion": [
+        {"regla": "RN-05", "dado": "Un turno existente", "cuando": "Otro turno comparte odontólogo o sillón y empieza justo al finalizar el anterior", "entonces": "Se rechaza el nuevo turno por incumplir la pausa obligatoria"}
+      ]
+    },
+    {
+      "id": 8,
+      "clave": "integraciones",
+      "estado": "pendiente",
+      "confirmadas_para_mvp": []
+    },
+    {
+      "id": 9,
+      "clave": "restricciones",
+      "estado": "confirmado",
+      "sedes": {"cantidad_inicial": 3, "ampliables": true},
+      "por_sede": {
+        "odontologos": {"minimo": 1, "maximo": 3},
+        "asistentes_minimos_por_odontologo": 1,
+        "recepcionistas": 1,
+        "horarios": [{"desde": "08:30", "hasta": "13:00"}, {"desde": "16:00", "hasta": "21:00"}]
+      },
+      "interfaz_grafica_obligatoria": true,
+      "datos": "solo ficticios",
+      "entrega": {"fecha": "2026-11-26", "hora": "12:00", "prorroga": false}
+    },
+    {
+      "id": 10,
+      "clave": "riesgos",
+      "estado": "identificado",
+      "riesgos": [
+        "Priorizar fallas cuya magnitud no fue verificada",
+        "Retrabajo por reglas o permisos sin cerrar frente al plazo de entrega",
+        "Requisitos legales y operación real no verificados para un eventual uso con datos reales",
+        "Afirmaciones no sustentadas sobre competidores si no se verifican manualmente al menos cinco fuentes"
+      ]
+    },
+    {
+      "id": 11,
+      "clave": "preguntas_abiertas",
+      "estado": "pendiente",
+      "preguntas": [
+        "¿Cómo se determina la duración exacta de la pausa dentro del rango confirmado?",
+        "¿Qué permisos de edición podría tener el asistente después del MVP?",
+        "¿Qué integraciones se necesitan, si alguna?",
+        "¿Qué magnitud tienen las fallas de coordinación y qué implican para el alcance del MVP?",
+        "¿Cómo operan los consultorios y qué requisitos legales aplicarían con datos reales?"
+      ]
+    }
+  ]
+}

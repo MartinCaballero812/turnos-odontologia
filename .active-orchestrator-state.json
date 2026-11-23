@@ -1,47 +1,192 @@
 {
   "version": 5,
-  "step": "discovery",
+  "step": "kb",
   "owner": "active-orchestrator",
   "foundation": {
     "version": 1,
     "approved_on": "2026-11-22",
-    "order": ["discovery"],
+    "order": [
+      "discovery"
+    ],
     "stop_after": "discovery",
     "resume_condition": "La investigación de mercado se solicita por separado. La fundación solo continúa por pedido del usuario después de esa investigación.",
     "prerequisites": {
       "openspec-init": {
         "status": "done",
-        "outputs": ["openspec/config.yaml", "openspec/changes/", "openspec/specs/", ".agents/skills/", ".claude/skills/"]
+        "outputs": [
+          "openspec/config.yaml",
+          "openspec/changes/",
+          "openspec/specs/",
+          ".agents/skills/",
+          ".claude/skills/"
+        ]
       }
     },
     "phases": {
       "discovery": {
         "variant": "interview",
-        "status": "in_progress",
+        "status": "done",
         "requires": [],
-        "outputs": ["docs/discovery/informe-discovery.md", "docs/discovery/checklist-discovery.json"],
-        "market_research": "out_of_scope"
+        "outputs": [
+          "docs/discovery/informe-discovery.md",
+          "docs/discovery/checklist-discovery.json"
+        ],
+        "market_research": "out_of_scope",
+        "completed_on": "2026-11-23"
       },
       "kb": {
         "variant": "interview",
         "status": "pending",
-        "requires": ["discovery"],
-        "inputs": ["docs/discovery/"],
-        "outputs": ["knowledge-base/"]
+        "requires": [
+          "discovery"
+        ],
+        "inputs": [
+          "docs/discovery/"
+        ],
+        "outputs": [
+          "knowledge-base/"
+        ]
       },
-      "visual-design": {"variant": "deferred", "status": "deferred", "requires": [], "outputs": ["design-system/README.md"]},
-      "roadmap": {"variant": "local-markdown", "status": "pending", "requires": ["kb"], "outputs": ["CHANGES.md"]},
-      "task-management": {"status": "skipped", "requires": [], "outputs": []},
-      "team-mode": {"status": "deferred", "requires": [], "outputs": []},
-      "memory-policy": {"variant": "local", "status": "pending", "requires": [], "outputs": []},
-      "find-skill": {"variant": "recommend", "status": "pending", "requires": ["kb"], "outputs": []},
-      "registry": {"variant": "index", "status": "pending", "requires": [], "outputs": [".atl/skill-registry.md"], "versioned": true},
+      "visual-design": {
+        "variant": "deferred",
+        "status": "deferred",
+        "requires": [],
+        "outputs": [
+          "design-system/README.md"
+        ]
+      },
+      "roadmap": {
+        "variant": "local-markdown",
+        "status": "pending",
+        "requires": [
+          "kb"
+        ],
+        "outputs": [
+          "CHANGES.md"
+        ]
+      },
+      "task-management": {
+        "status": "skipped",
+        "requires": [],
+        "outputs": []
+      },
+      "team-mode": {
+        "status": "deferred",
+        "requires": [],
+        "outputs": []
+      },
+      "memory-policy": {
+        "variant": "local",
+        "status": "pending",
+        "requires": [],
+        "outputs": []
+      },
+      "find-skill": {
+        "variant": "recommend",
+        "status": "pending",
+        "requires": [
+          "kb"
+        ],
+        "outputs": []
+      },
+      "registry": {
+        "variant": "index",
+        "status": "pending",
+        "requires": [],
+        "outputs": [
+          ".atl/skill-registry.md"
+        ],
+        "versioned": true
+      },
       "agents": {
         "variant": "generate",
         "status": "pending",
-        "requires": ["kb", "roadmap", "registry"],
-        "outputs": ["AGENTS.md", "CLAUDE.md"]
+        "requires": [
+          "kb",
+          "roadmap",
+          "registry"
+        ],
+        "outputs": [
+          "AGENTS.md",
+          "CLAUDE.md"
+        ]
       }
+    },
+    "pause": {
+      "status": "paused",
+      "after": "discovery",
+      "on": "2026-11-23",
+      "waiting_for": "user_requested_market_research",
+      "next_foundation_phase": "kb"
     }
+  },
+  "discovery": {
+    "created_by": "discovery-research",
+    "method": "interview",
+    "confirmed_on": "2026-11-23",
+    "report_file": "docs/discovery/informe-discovery.md",
+    "checklist_file": "docs/discovery/checklist-discovery.json",
+    "sources": [],
+    "competitors": [],
+    "problema": "Hipótesis: la coordinación manual de turnos causa superposiciones, ausencias sin aviso y carga administrativa, todavía sin cuantificar.",
+    "usuarios": [
+      "Recepción de la sede",
+      "Odontólogo",
+      "Asistente dental",
+      "Administrador de todas las sedes"
+    ],
+    "casos_de_uso": [
+      "Crear turno",
+      "Reprogramar turno",
+      "Cancelar turno",
+      "Consultar la agenda diaria propia",
+      "Consultar la agenda diaria del sillón",
+      "Configurar sedes, sillones, profesionales, prestaciones y usuarios"
+    ],
+    "funcionalidades_necesarias": [
+      "Interfaz gráfica",
+      "Gestión de turnos en tres sedes",
+      "Prevención de solapamientos y cumplimiento de la pausa",
+      "Duración por prestación",
+      "Agenda diaria por odontólogo y por sillón",
+      "Configuración de sedes, recursos y usuarios"
+    ],
+    "funcionalidades_opcionales": [
+      "Reserva en línea para pacientes",
+      "WhatsApp y recordatorios",
+      "Ficha clínica",
+      "Cobros",
+      "Facturación"
+    ],
+    "reglas_de_negocio": [
+      "Todo turno requiere un odontólogo responsable; el sillón es opcional. Un turno con sillón no puede quedar sin odontólogo.",
+      "Cada sillón pertenece a una única sede.",
+      "No se permiten solapamientos por odontólogo ni por sillón asignado.",
+      "La prestación fija la duración del turno; recepción no puede cambiarla en un turno puntual.",
+      "Los turnos consecutivos requieren una pausa para acondicionamiento, higienización o descanso. El asistente se encarga de preparar espacio, equipo e instrumental.",
+      "Cancelar o reprogramar libera el horario anterior y conserva el registro original; la cancelación queda registrada.",
+      "Los horarios se definen por sede, no por profesional."
+    ],
+    "integraciones": [],
+    "integraciones_status": "pending",
+    "restricciones": [
+      "Tres sedes con capacidad de ampliación",
+      "Solo datos ficticios",
+      "Interfaz gráfica",
+      "Entrega el 26/11/2026 a las 12:00 sin prórroga"
+    ],
+    "riesgos": [
+      "Priorizar fallas cuya magnitud no fue verificada",
+      "Retrabajo por reglas o permisos sin cerrar frente al plazo de entrega",
+      "Requisitos legales y operación real no verificados para un eventual uso con datos reales",
+      "Afirmaciones no sustentadas sobre competidores si no se verifican manualmente al menos cinco fuentes"
+    ],
+    "preguntas_abiertas": [
+      "¿Cómo se determina la duración exacta de la pausa dentro del rango confirmado?",
+      "¿Qué permisos de edición podría tener el asistente después del MVP?",
+      "¿Qué integraciones se necesitan, si alguna?",
+      "¿Qué magnitud tienen las fallas de coordinación y qué implican para el alcance del MVP?",
+      "¿Cómo operan los consultorios y qué requisitos legales aplicarían con datos reales?"
+    ]
   }
 }

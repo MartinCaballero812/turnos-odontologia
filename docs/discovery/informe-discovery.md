@@ -2,8 +2,8 @@
 
 - **Materia:** Metodología I
 - **Carrera:** Tecnicatura Universitaria en Programación
-- **Integrantes:** [Completar nombres y apellidos]
-- **Fecha del borrador:** 23 de noviembre de 2026
+- **Integrantes:** Martin Caballero · Juan Simón Ledda · Juan Cruz Reveco · Bruno Santiago Tejada
+- **Fecha del informe:** 24 de noviembre de 2026
 
 ## Resumen ejecutivo
 
@@ -176,23 +176,21 @@ Usar demos públicas, documentación o videos oficiales, sin contactar a proveed
 
 ## Verificación de fuentes
 
-Según `NOTAS.md`, Juan Cruz registró el 24/11/2026 la revisión de cinco fuentes. Se consignan abajo sus hallazgos y se distinguen las dos fuentes sugeridas que todavía no figuran como revisadas. Las fuentes revisadas cubren sitios oficiales, una página de precios y términos contractuales; el centro de ayuda y las reseñas quedan pendientes.
+**Revisión personal registrada por Juan Cruz Reveco el 24 de noviembre de 2026.** Se revisaron cinco páginas: tres fichas comerciales, un documento contractual y una página de precios. Verificar que un proveedor publica una función no equivale a probar que funcione.
 
-| Tipo | Fuente | Qué afirmaba el informe | Revisó y fecha | Qué encontró | Qué corrigió |
-|---|---|---|---|---|---|
-| Sitio oficial | [OdonFlow — producto](https://odonflow.com/) | Anuncia una agenda para varios profesionales y sillones, sobreturnos y lista de espera. | Juan Cruz — 24/11/2026 | La página presenta esas funciones de agenda y también permite mover turnos arrastrándolos. | Sin cambios. |
-| Términos contractuales | [DentalCore — términos](https://dentalcore.app/terms) | Para facturar con ARCA hacen falta CUIT propio, certificado digital y punto de venta habilitado. | Juan Cruz — 24/11/2026 | El punto 5 de los términos menciona los tres requisitos. | Sin cambios. |
-| Sitio oficial | [Dentalink — agenda](https://www.softwaredentalink.com/ar/experiencia-de-pacientes/agenda) | Muestra la ocupación de los sillones; eso no prueba que impida guardar turnos superpuestos. | Juan Cruz — 24/11/2026 | La página muestra vistas diaria, semanal y general de los sillones y menciona una agenda paralela de sobreagendamiento. No explica una regla que bloquee siempre los conflictos. | Sin cambios. |
-| Sitio oficial | [DentiX — producto](https://dentix.com.ar/) | Anuncia columnas por sillón y profesional, bloqueos de horarios, precios mensuales equivalentes con pago anual y recordatorios según el plan. | Juan Cruz — 24/11/2026 | En `NOTAS.md` se registraron columnas por recurso, bloqueos, bonificación anual y recordatorios por correo y WhatsApp según el plan. | Sin cambios. |
-| Página de precios | [AgendaPro — planes Argentina](https://agendapro.com/ar/planes) | Publica precios mensuales en ARS de 9.900, 19.900, 39.900 y 129.900, con IVA para cuentas nuevas, y adicionales según el plan. | Juan Cruz — 24/11/2026 | La página muestra esos cuatro precios, los profesionales extra y otros adicionales, como ficha clínica, recepcionista IA y mensajería. | Sin cambios. |
-| Centro de ayuda | [Codental — agenda por sillones](https://ajuda.codental.com.br/agenda-por-cadeiras-como-organizar-sua-clinica-por-espaco-de-atendimento) | El aviso de conflicto no impide guardar. | Pendiente | Pendiente | Pendiente |
-| Reseñas verificadas | [Capterra — Dentalink](https://www.capterra.es/software/196361/dentalink#reviews) | La ficha consultada mostraba dos reseñas de 2022; no prueban funciones actuales. | Pendiente | Pendiente | Pendiente |
+| Fuente y tipo | Qué afirmaba el informe | Qué encontró el integrante | Qué se corrigió |
+|---|---|---|---|
+| [OdonFlow — producto](https://odonflow.com/) · Sitio oficial · 24/11/2026 | Anuncia agenda para múltiples profesionales y sillones, sobreturnos y lista de espera. | La página anuncia expresamente «Agenda multi-profesional y multi-sillón, con arrastre, sobreturnos y lista de espera». | Sin cambios. Sigue clasificado como oferta del proveedor. |
+| [DentalCore — términos y condiciones](https://dentalcore.app/terms) · Términos contractuales · 24/11/2026 | Para facturar ante ARCA se requiere CUIT propio, certificado digital y punto de venta habilitado. | El apartado 5 de los términos enumera esos tres requisitos. | Sin cambios. |
+| [Dentalink — agenda](https://www.softwaredentalink.com/ar/experiencia-de-pacientes/agenda) · Sitio oficial · 24/11/2026 | Muestra la ocupación de los sillones; el bloqueo automático de turnos superpuestos no está evidenciado. | Describe vistas diaria, semanal y global de sillones. La página no demuestra que el sistema impida guardar dos turnos superpuestos. | Sin cambios en el análisis. Se evitó interpretar la falta de demostración como prueba de que la función no existe. |
+| [DentiX — producto y planes](https://dentix.com.ar/) · Sitio oficial · 24/11/2026 | Anuncia columnas por sillón y profesional, bloqueos, precios equivalentes mensuales con facturación anual y recordatorios según el plan. | La página anuncia las columnas y el bloqueo de horarios, muestra precios con facturación anual e indica correo en todos los planes y WhatsApp en Pro y Max, con un cupo mensual. | Sin cambios. El primer mes bonificado no se da por comprobado en esta revisión: el registro del integrante no incluye esa condición. |
+| [AgendaPro — planes Argentina](https://agendapro.com/ar/planes) · Página de precios · 24/11/2026 | Publica cuatro precios mensuales en ARS con IVA para cuentas nuevas y adicionales según el plan. | La página muestra ARS 9.900, 19.900, 39.900 y 129.900, y describe adicionales por profesionales, ficha clínica e IA, y cargos de Meta cuando corresponde. | Sin cambios. |
 
-Si cambia una afirmación, corregirla en la sección correspondiente y registrar la decisión **Ajustar** en la bitácora. Si no hay cambio, anotar «Sin cambios», junto con lo que efectivamente se comprobó.
+**Diversidad de fuentes:** para cubrir más tipos de evidencia de la consigna, queda pendiente una revisión personal del [centro de ayuda de Codental](https://ajuda.codental.com.br/agenda-por-cadeiras-como-organizar-sua-clinica-por-espaco-de-atendimento) y de las [reseñas verificadas de Dentalink en Capterra](https://www.capterra.es/software/196361/dentalink#reviews).
 
 ## Referencias
 
-Fecha de consulta para las fuentes del relevamiento: **23 de noviembre de 2026**. Las fechas de comprobación personal se registran arriba cuando el equipo realice esa revisión.
+Fecha de consulta para las fuentes del relevamiento: **23 de noviembre de 2026**. La comprobación personal del equipo registrada arriba corresponde al **24 de noviembre de 2026**.
 
 - OdonFlow — [producto y planes](https://odonflow.com/).
 - OdonFlow — [funciones para Argentina](https://odonflow.com/software-odontologico-argentina).

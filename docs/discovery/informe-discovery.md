@@ -176,14 +176,16 @@ Usar demos públicas, documentación o videos oficiales, sin contactar a proveed
 
 ## Verificación de fuentes
 
-**Pendiente de revisión por el equipo.** La consigna exige que los integrantes abran personalmente al menos cinco fuentes de tipos distintos y registren si respaldan el informe. Las siguientes son candidatas; ninguna se presenta como comprobada por el equipo.
+Según `NOTAS.md`, Juan Cruz registró el 24/11/2026 la revisión de cinco fuentes. Se consignan abajo sus hallazgos y se distinguen las dos fuentes sugeridas que todavía no figuran como revisadas. Las fuentes revisadas cubren sitios oficiales, una página de precios y términos contractuales; el centro de ayuda y las reseñas quedan pendientes.
 
-| Tipo | Fuente sugerida | Afirmación que hay que contrastar | Revisó y fecha | Qué encontró | Qué corrigió |
+| Tipo | Fuente | Qué afirmaba el informe | Revisó y fecha | Qué encontró | Qué corrigió |
 |---|---|---|---|---|---|
-| Sitio oficial | [Dentalink — agenda](https://www.softwaredentalink.com/ar/experiencia-de-pacientes/agenda) | Ofrece vistas de ocupación de sillones; eso no prueba que bloquee solapamientos. | Pendiente | Pendiente | Pendiente |
-| Página de precios | [AgendaPro — planes Argentina](https://agendapro.com/ar/planes) | Publica precios en ARS y adicionales según el plan; comprobar los importes y condiciones vigentes. | Pendiente | Pendiente | Pendiente |
+| Sitio oficial | [OdonFlow — producto](https://odonflow.com/) | Anuncia una agenda para varios profesionales y sillones, sobreturnos y lista de espera. | Juan Cruz — 24/11/2026 | La página presenta esas funciones de agenda y también permite mover turnos arrastrándolos. | Sin cambios. |
+| Términos contractuales | [DentalCore — términos](https://dentalcore.app/terms) | Para facturar con ARCA hacen falta CUIT propio, certificado digital y punto de venta habilitado. | Juan Cruz — 24/11/2026 | El punto 5 de los términos menciona los tres requisitos. | Sin cambios. |
+| Sitio oficial | [Dentalink — agenda](https://www.softwaredentalink.com/ar/experiencia-de-pacientes/agenda) | Muestra la ocupación de los sillones; eso no prueba que impida guardar turnos superpuestos. | Juan Cruz — 24/11/2026 | La página muestra vistas diaria, semanal y general de los sillones y menciona una agenda paralela de sobreagendamiento. No explica una regla que bloquee siempre los conflictos. | Sin cambios. |
+| Sitio oficial | [DentiX — producto](https://dentix.com.ar/) | Anuncia columnas por sillón y profesional, bloqueos de horarios, precios mensuales equivalentes con pago anual y recordatorios según el plan. | Juan Cruz — 24/11/2026 | En `NOTAS.md` se registraron columnas por recurso, bloqueos, bonificación anual y recordatorios por correo y WhatsApp según el plan. | Sin cambios. |
+| Página de precios | [AgendaPro — planes Argentina](https://agendapro.com/ar/planes) | Publica precios mensuales en ARS de 9.900, 19.900, 39.900 y 129.900, con IVA para cuentas nuevas, y adicionales según el plan. | Juan Cruz — 24/11/2026 | La página muestra esos cuatro precios, los profesionales extra y otros adicionales, como ficha clínica, recepcionista IA y mensajería. | Sin cambios. |
 | Centro de ayuda | [Codental — agenda por sillones](https://ajuda.codental.com.br/agenda-por-cadeiras-como-organizar-sua-clinica-por-espaco-de-atendimento) | El aviso de conflicto no impide guardar. | Pendiente | Pendiente | Pendiente |
-| Términos contractuales | [DentalCore — términos](https://dentalcore.app/terms) | ARCA requiere CUIT, certificado propio y punto de venta habilitado. | Pendiente | Pendiente | Pendiente |
 | Reseñas verificadas | [Capterra — Dentalink](https://www.capterra.es/software/196361/dentalink#reviews) | La ficha consultada mostraba dos reseñas de 2022; no prueban funciones actuales. | Pendiente | Pendiente | Pendiente |
 
 Si cambia una afirmación, corregirla en la sección correspondiente y registrar la decisión **Ajustar** en la bitácora. Si no hay cambio, anotar «Sin cambios», junto con lo que efectivamente se comprobó.

@@ -1,8 +1,10 @@
 
 
-# 
+# ETAPA 2: Discovery
 
-# Discovery — Primera ronda
+# 23 \- 11- 2026 — ENTREVISTA
+
+## Discovery — Primera ronda
 
 1\. Problema. ¿Qué falla hoy al gestionar turnos y a quién le afecta más? Por ejemplo: turnos superpuestos, ausencias, demoras para coordinar o algo distinto. Esto define qué debería mejorar el sistema.
 
@@ -13,7 +15,9 @@
 4\. Alcance de la primera versión. ¿Qué es indispensable para que se pueda usar en un consultorio y qué dejarías para después? Esto separa lo necesario de lo opcional.  
 Podés responder numerando del 1 al 4\. Si algo todavía no está decidido, lo dejamos como pregunta abierta.
 
-**RESPUESTAS POR CLAUDE  Revisado**
+### 
+
+### RESPUESTAS POR CLAUDE  Revisado por Juan Cruz
 
 1\. Problema  
 Los consultorios odontológicos coordinan los turnos de forma manual (papel, planillas, mensajes). Hipótesis de fallas: turnos superpuestos por profesional o sillón, ausencias sin aviso y tiempo administrativo perdido en coordinar. Afecta más a recepción (carga y corrige todo a mano) y al odontólogo (huecos y superposiciones en su agenda). 
@@ -40,7 +44,7 @@ Imprescindible: gestión de turnos con prevención de solapamientos, duración v
 Para después: reserva online del paciente, WhatsApp y recordatorios, ficha clínica, cobros y facturación.  
 Pendiente: confirmar este alcance con la investigación de mercado.
 
-# Discovery — Segunda ronda
+## Discovery — Segunda ronda
 
 1\. Proceso actual. Mencionaste papel, planillas y mensajes. ¿Cómo se coordina un turno de principio a fin en los consultorios que conocés? Si no tenés un caso observado, lo dejamos como hipótesis. Esto permite comparar la propuesta con el flujo real, sin investigar competidores todavía.
 
@@ -50,7 +54,7 @@ Pendiente: confirmar este alcance con la investigación de mercado.
 
 4\. Restricciones. ¿La primera versión está pensada para un consultorio piloto, varias sedes o todavía no está decidido? ¿Hay alguna exigencia fija de entrega, tecnología o manejo de datos de pacientes? Esto delimita qué tiene que soportar la primera versión.
 
-**RESPUESTAS POR CLAUDE** 
+### RESPUESTAS POR CLAUDE 
 
 1. hipótesis  
 2.  Reglas de agenda  
@@ -75,7 +79,7 @@ Lo que no decidan hoy: **"pendiente"**.
 * **Piloto o varias sedes:** no está decidido. Sugerencia: un solo consultorio, y sucursales como "pendiente". Es decisión del grupo.  
 * **Stack:** pendiente, se define en la knowledge-base.
 
-**RESPUESTAS POR CLAUDE (2da iteracion)**
+### RESPUESTAS POR CLAUDE (2da iteracion)
 
 **4\. Restricciones Alcance: 3 sedes.** La primera versión está pensada para una organización con 3 sedes, no para un consultorio piloto.
 
@@ -114,7 +118,7 @@ Lo que no decidan hoy: **"pendiente"**.
 
 **Antes de mandarlo:** avisá a los otros integrantes y anotá en `NOTAS.md` la fecha y quién decidió "3 sedes" y "solo datos ficticios". Cuando el agente conteste, fijate que no vuelva a hablar de "consultorio piloto".
 
-## Corrección a la ronda 1:
+### Corrección a la ronda 1:
 
 2: Usuarios (segunda versión) 
 
@@ -125,7 +129,7 @@ Pendiente: permisos exactos de cada rol incluido asistente dental.
 
 3\. Casos de uso (agregado): *Como asistente dental, quiero consultar la agenda del sillón para el día, para preparar el instrumental adecuado antes de que pase el próximo paciente.*
 
-## RESPUESTAS POR JUAN CRUZ
+### RESPUESTAS POR JUAN CRUZ
 
 1. hipótesis  
 2.  Reglas de agenda:	  
@@ -140,7 +144,7 @@ Pendiente: permisos exactos de cada rol incluido asistente dental.
 4. **Restricciones**  
    ¿La primera versión está pensada para un consultorio piloto, varias sedes o todavía no está decidido? ¿Hay alguna exigencia fija de entrega, tecnología o manejo de datos de pacientes? Esto delimita qué tiene que soportar la primera versión. El sistema abarca 3 sedes, Por sede: de 1 a 3 odontólogos, de 1 asistente al menos por odontólogo y 1 recepcionista, con horarios por sede de 8.30 a 13 mañana y tarde de 16 a 21\. La entrega es el jueves 26/11 a las 12 hs. Los datos de los pacientes son datos ficticios No hay exigencias normativas declaradas, pero por tratarse de datos de salud queda como pendiente de verificar en la investigación 
 
-# Discovery — Última ronda
+## Discovery — Última ronda
 
 1\. Asistente dental. Cuando decís «segunda versión», ¿te referís a la lista corregida de usuarios del MVP o a una versión posterior? Esto define cuándo entra la consulta de la agenda diaria del sillón para preparar el instrumental.
 
@@ -150,7 +154,7 @@ Pendiente: permisos exactos de cada rol incluido asistente dental.
 
 4\. Riesgos y preguntas abiertas. De lo que falta resolver —validar el MVP, precisar permisos, definir integraciones o verificar requisitos para datos reales—, ¿qué te preocupa más de cara a la entrega? ¿Falta algún riesgo importante?
 
-## RESPUESTAS POR CLAUDE 
+### RESPUESTAS POR CLAUDE 
 
 ## 
 
@@ -182,7 +186,7 @@ Antes de pegarlo, revisen estas dos cosas:
 
 La pregunta 4 es sobre qué les preocupa a ustedes. Si el grupo prioriza otro riesgo, cámbienlo antes de mandar.
 
-## RESPUESTAS POR JUAN CRUZ
+### RESPUESTAS POR JUAN CRUZ
 
 **1\. Asistente dental.** "Segunda versión" se refiere a la lista corregida de usuarios del MVP, no a una versión posterior del producto. Por lo tanto, el asistente dental entra en el MVP, pero solo con consulta: ve la agenda diaria del sillón para preparar el instrumental y la higienización. 
 
@@ -203,7 +207,7 @@ La pregunta 4 es sobre qué les preocupa a ustedes. Si el grupo prioriza otro ri
 * **Plazo.** Entrega del proyecto es  el a las  jueves 26/11 a las 12:00, sin prórroga.  
 * **Confiabilidad del Discovery.** El agente puede inventar datos de competidores, por eso hay que verificar a mano al menos 5 fuentes
 
-# Discovery — Resumen para confirmar
+## Discovery — Resumen para confirmar
 
 **La primera versión será una agenda interna con interfaz gráfica para tres sedes. El asistente dental entra en el MVP con acceso de solo consulta; el paciente queda fuera.**
 
@@ -231,7 +235,7 @@ La pregunta 4 es sobre qué les preocupa a ustedes. Si el grupo prioriza otro ri
 
 **11    Preguntas abiertas    Cómo se elige el valor exacto de la pausa dentro del rango; si recepción puede acceder a otras sedes; si el odontólogo puede bloquear horarios; qué edición podría habilitarse al asistente más adelante, sin darle edición en el MVP; qué integraciones se necesitan; cómo operan los consultorios y qué requisitos legales aplicarían con datos reales.**
 
-##  Respuestas a preguntas abiertas:  Juan Cruz
+###  Respuestas a preguntas abiertas:  Juan Cruz
 
 **Si recepción puede acceder a otras sedes; No, recepción solo tiene acceso a su propia sede.** 
 
@@ -243,11 +247,11 @@ La pregunta 4 es sobre qué les preocupa a ustedes. Si el grupo prioriza otro ri
 
 Cómo queda el caso borde del PDF: con la pausa obligatoria, un turno que empieza justo cuando termina otro se rechaza. Conviene registrarlo, porque define un escenario de la spec: Ya dijimos que entre turnos habrá un lapso de 5 a 10 minutos de acondicionamiento, higienización o hasta descanso entre turno y turno.
 
-# Corrección: 
+### Corrección por Juan Cruz: 
 
  **falta fijar la pausa del MVP dentro de los 5–10 minutos**
 
-**Duración:** el rango de 10 minutos queda confirmado. /**Debe de estar fijo**
+**Duración:** el rango de 10 minutos queda confirmado. (**Debe de estar fijo)**
 
 **decidir cómo el asistente ve los turnos sin sillón**
 
@@ -263,3 +267,34 @@ La interfaz gráfica es obligatoria
 
  
 
+—--------—---------------—-------- FIN ENTREVISTA \-----—--------—--------—--------
+
+# \#\# 24 \- 11 \- 2026 
+
+\- **Revisó**: Martin Caballero
+
+\- **Decisión**: Ajustar
+
+\- **Hallazgo**: El informe mezclaba la entrevista con la investigación de mercado.
+
+\-**Cambio**: Borramos la entrevista \`docs/discovery/informe-discovery.md\`
+
+esta solo estará en el archivo   \`docs/discovery/checklist-discovery.json\`
+
+  y el contenido de mercado estará en  \`docs/discovery/[informe-discovery.md](http://informe-discovery.md)\`
+
+# 24 \- 11 \- 2026 Verificación  de la fuente
+
+Verificación: Juan Cruz
+
+| Fuente (urly fecha) | Qué afirmaba el informe    | Qué encontramos en la fuente  | Qué corregimos |
+| :---- | :---- | :---- | :---- |
+| [https\://odonflow.com/](https://odonflow.com/) ·  · 24/11/2026  | Multiodontólogo y multisillón, sobreturnos y espera | La página anuncia de manera directa: “**Agenda** multi-profesional y multi-sillón, con arrastre, sobreturnos y lista de espera.” | Sin cambios  |
+| [DentalCore — Términos y Condiciones](https://dentalcore.app/terms) · 24/11/2026  | Para facturar con ARCA, el profesional necesita su propio CUIT, certificado digital y punto de venta habilitado | En el punto 5 de los términos aparecen estos tres requisitos. La página respalda bien lo que dice en el informe | Sin cambios  |
+| [Dentalink — página de agenda](https://www.softwaredentalink.com/ar/experiencia-de-pacientes/agenda) · 24/11/2026  | Muestra la ocupación de los sillones, pero no hay una demostración de que se impida guardar dos turnos superpuestos  | La página muestra distintas vistas (diaria, semanal y general) de los sillones ayudando a evitar sobre agendamientos, pero también menciona una agenda paralela para agendar. No aplica una regla que bloquee los turnos superpuestos   | Sin cambios |
+| [https\://dentix.com.ar/](https://dentix.com.ar/) · 24/11/2026 | Anuncia columnas por sillón y profesional, y permite bloquear horarios.  Primer mes bonificado; ARS 30.000 / 40.000 / 50.000 mensuales equivalentes con facturación anual.  Recordatorios por correo y WhatsApp según plan. | La página de manera explícita afirma: \-Agenda inteligente. \-Una columna por sillón y por profesional.  \-Bloquea horarios. \-Se observan las bonificaciones mensuales al pago del servicio anualmente. \-Recordatorios de turno: Se envían solos, sin que tengas que acordarte. Por email se envían en todos los planes; por WhatsApp solo en el plan Pro y Max, con un cupo mensual incluido en el precio. | Sin cambios |
+| [https\://agendapro.com/ar/planes](https://agendapro.com/ar/planes) · 24/11/26 | Publica precios en ARS (9.900 / 19.900 / 39.900 / 129.900 con IVA para cuentas nuevas) y adicionales según el plan.  | Confirma esos cuatro valores mensuales en ARS con IVA incluido para cuentas nuevas y los adicionales por profesional extra, ficha clínica (+\$10.000 en Individual), Recepcionista IA y paquetes extra de WhatsApp (con cargos de Meta aparte al usar número propio). Respalda lo que dice el informe  | sin cambios  |
+
+—--------—--------—--------—--------FIN ETAPA 2-----—--------—--------—--------—--------
+
+# ETAPA 3:

@@ -4,8 +4,14 @@
   "estado": "confirmado_por_el_usuario",
   "informe": "informe-discovery.md",
   "investigacion_mercado": {
-    "estado": "pendiente_por_separado",
+    "estado": "publicada",
+    "informe": "informe-discovery.md",
+    "pdf": "informe-discovery.pdf",
+    "borrador_de_trabajo": "investigacion-mercado-odontologia.md",
     "fuentes_consultadas_en_esta_fase": [],
+    "alcance_de_fuentes_consultadas_en_esta_fase": "Solo entrevista; la investigación posterior se documenta en el informe.",
+    "sistemas_comparados_en_el_informe": 16,
+    "fuentes_verificadas_personalmente_segun_el_informe": 5,
     "minimo_fuentes_a_verificar_manualmente": 5
   },
   "puntos": [
@@ -46,16 +52,18 @@
     {
       "id": 4,
       "clave": "alternativas_y_competidores",
-      "estado": "pendiente",
+      "estado": "documentado_en_informe",
       "alternativas_mencionadas_no_verificadas": ["papel", "planillas", "mensajes"],
-      "competidores_evaluados": []
+      "competidores_evaluados_en_entrevista": [],
+      "referencia": "informe-discovery.md#a-tabla-comparativa"
     },
     {
       "id": 5,
       "clave": "funcionalidades_necesarias",
       "estado": "provisional",
       "funcionalidades": ["Interfaz gráfica", "Gestión de turnos en tres sedes", "Prevención de solapamientos y cumplimiento de la pausa", "Duración por prestación", "Agenda diaria por odontólogo y por sillón", "Configuración de sedes, recursos y usuarios"],
-      "pendientes": ["Contrastar el alcance y su prioridad con la investigación de mercado"]
+      "referencia_mvp_recomendado": "informe-discovery.md#d-recomendación-final",
+      "pendientes": ["Revisar y confirmar el alcance definitivo a partir del MVP recomendado"]
     },
     {
       "id": 6,

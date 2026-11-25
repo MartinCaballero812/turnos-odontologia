@@ -1,15 +1,17 @@
 {
   "version": 5,
-  "step": "kb",
+  "step": "find-skill",
   "owner": "active-orchestrator",
   "foundation": {
     "version": 1,
     "approved_on": "2026-11-22",
     "order": [
-      "discovery"
+      "discovery",
+      "kb",
+      "roadmap"
     ],
-    "stop_after": "discovery",
-    "resume_condition": "La investigación de mercado se solicita por separado. La fundación solo continúa por pedido del usuario después de esa investigación.",
+    "stop_after": "roadmap",
+    "resume_condition": "El roadmap se revisa al terminar. Las etapas siguientes requieren una decisión explícita de continuar.",
     "prerequisites": {
       "openspec-init": {
         "status": "done",
@@ -31,12 +33,12 @@
           "docs/discovery/informe-discovery.md",
           "docs/discovery/checklist-discovery.json"
         ],
-        "market_research": "out_of_scope",
+        "market_research": "published_separately",
         "completed_on": "2026-11-23"
       },
       "kb": {
         "variant": "interview",
-        "status": "pending",
+        "status": "done",
         "requires": [
           "discovery"
         ],
@@ -45,7 +47,11 @@
         ],
         "outputs": [
           "knowledge-base/"
-        ]
+        ],
+        "started_on": "2026-11-24",
+        "completed_on": "2026-11-24",
+        "review_status": "approved",
+        "reviewed_on": "2026-11-24"
       },
       "visual-design": {
         "variant": "deferred",
@@ -57,13 +63,16 @@
       },
       "roadmap": {
         "variant": "local-markdown",
-        "status": "pending",
+        "status": "done",
         "requires": [
           "kb"
         ],
         "outputs": [
           "CHANGES.md"
-        ]
+        ],
+        "started_on": "2026-11-24",
+        "completed_on": "2026-11-24",
+        "review_status": "pending"
       },
       "task-management": {
         "status": "skipped",
@@ -114,11 +123,29 @@
     },
     "pause": {
       "status": "paused",
-      "after": "discovery",
-      "on": "2026-11-23",
-      "waiting_for": "user_requested_market_research",
-      "next_foundation_phase": "kb"
-    }
+      "after": "roadmap",
+      "on": "2026-11-24",
+      "waiting_for": "user_review_roadmap",
+      "next_foundation_phase": "find-skill"
+    },
+    "pause_history": [
+      {
+        "status": "resumed",
+        "after": "discovery",
+        "on": "2026-11-23",
+        "waiting_for": "user_requested_kb",
+        "next_foundation_phase": "kb",
+        "resumed_on": "2026-11-24"
+      },
+      {
+        "status": "resumed",
+        "after": "kb",
+        "on": "2026-11-24",
+        "waiting_for": "user_review_kb",
+        "next_foundation_phase": "roadmap",
+        "resumed_on": "2026-11-24"
+      }
+    ]
   },
   "discovery": {
     "created_by": "discovery-research",
@@ -187,6 +214,57 @@
       "¿Qué integraciones se necesitan, si alguna?",
       "¿Qué magnitud tienen las fallas de coordinación y qué implican para el alcance del MVP?",
       "¿Cómo operan los consultorios y qué requisitos legales aplicarían con datos reales?"
+    ],
+    "market_research": {
+      "status": "published",
+      "report_file": "docs/discovery/informe-discovery.md",
+      "pdf_file": "docs/discovery/informe-discovery.pdf",
+      "working_draft_file": "docs/discovery/investigacion-mercado-odontologia.md",
+      "published_commit": "b9a52976262976030c26acf1d7f51b3e08418773",
+      "systems_compared": 16,
+      "sources_personally_verified": 5
+    }
+  },
+  "kb": {
+    "created_by": "kb-creator",
+    "source": "interactive",
+    "discovery": {
+      "problem": "Coordinar la agenda interna de Odonclick sin dobles reservas por odontólogo o sillón y con pausas de preparación dentro de la franja de cada sede.",
+      "system_type": "web_app",
+      "domain": "gestión de turnos odontológicos",
+      "scale": "team",
+      "stack": "TypeScript vanilla + Spring Boot REST + Gradle + Hibernate + PostgreSQL",
+      "needs_infra": true
+    },
+    "files": [
+      "knowledge-base/README.md",
+      "knowledge-base/01_vision_y_objetivos.md",
+      "knowledge-base/02_descripcion_general.md",
+      "knowledge-base/03_actores_y_roles.md",
+      "knowledge-base/04_modelo_de_datos.md",
+      "knowledge-base/05_reglas_de_negocio.md",
+      "knowledge-base/06_funcionalidades.md",
+      "knowledge-base/07_flujos_principales.md",
+      "knowledge-base/08_arquitectura_propuesta.md",
+      "knowledge-base/09_decisiones_y_supuestos.md",
+      "knowledge-base/10_preguntas_abiertas.md"
+    ]
+  },
+  "roadmap": {
+    "created_by": "roadmap-generator",
+    "source": "CHANGES.md",
+    "changes_file": "CHANGES.md",
+    "changes": [
+      "C-01",
+      "C-02",
+      "C-03",
+      "C-04",
+      "C-05",
+      "C-06",
+      "C-07",
+      "C-08",
+      "C-09",
+      "C-10"
     ]
   }
 }

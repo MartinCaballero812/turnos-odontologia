@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "step": "find-skill",
+  "step": "done",
   "owner": "active-orchestrator",
   "foundation": {
     "version": 1,
@@ -8,10 +8,13 @@
     "order": [
       "discovery",
       "kb",
-      "roadmap"
+      "roadmap",
+      "find-skill",
+      "registry",
+      "agents"
     ],
-    "stop_after": "roadmap",
-    "resume_condition": "El roadmap se revisa al terminar. Las etapas siguientes requieren una decisión explícita de continuar.",
+    "stop_after": "agents",
+    "resume_condition": "El ciclo OPSX de la Etapa 6 requiere una decisión explícita de continuar.",
     "prerequisites": {
       "openspec-init": {
         "status": "done",
@@ -72,7 +75,10 @@
         ],
         "started_on": "2026-11-24",
         "completed_on": "2026-11-24",
-        "review_status": "pending"
+        "review_status": "approved",
+        "reviewed_on": "2026-11-25",
+        "review_decision": "Continuar",
+        "review_reason": "CHANGES.md alinea las tareas con la sección D de Discovery y la KB. C-01 es la única entrega académica y no depende de los cambios posteriores del MVP."
       },
       "task-management": {
         "status": "skipped",
@@ -92,7 +98,11 @@
       },
       "find-skill": {
         "variant": "recommend",
-        "status": "pending",
+        "status": "done",
+        "completed_on": "2026-11-25",
+        "review_status": "approved",
+        "reviewed_on": "2026-11-25",
+        "review_decision": "No instalar skills adicionales.",
         "requires": [
           "kb"
         ],
@@ -100,7 +110,8 @@
       },
       "registry": {
         "variant": "index",
-        "status": "pending",
+        "status": "done",
+        "completed_on": "2026-11-25",
         "requires": [],
         "outputs": [
           ".atl/skill-registry.md"
@@ -109,7 +120,10 @@
       },
       "agents": {
         "variant": "generate",
-        "status": "pending",
+        "status": "done",
+        "completed_on": "2026-11-25",
+        "review_status": "approved",
+        "reviewed_on": "2026-11-25",
         "requires": [
           "kb",
           "roadmap",
@@ -123,10 +137,9 @@
     },
     "pause": {
       "status": "paused",
-      "after": "roadmap",
-      "on": "2026-11-24",
-      "waiting_for": "user_review_roadmap",
-      "next_foundation_phase": "find-skill"
+      "after": "agents",
+      "on": "2026-11-25",
+      "waiting_for": "user_continue_stage_6"
     },
     "pause_history": [
       {
@@ -144,6 +157,30 @@
         "waiting_for": "user_review_kb",
         "next_foundation_phase": "roadmap",
         "resumed_on": "2026-11-24"
+      },
+      {
+        "status": "resumed",
+        "after": "roadmap",
+        "on": "2026-11-24",
+        "waiting_for": "user_review_roadmap",
+        "next_foundation_phase": "find-skill",
+        "resumed_on": "2026-11-25"
+      },
+      {
+        "status": "resumed",
+        "after": "find-skill",
+        "on": "2026-11-25",
+        "waiting_for": "user_skill_selection",
+        "next_foundation_phase": "registry",
+        "resumed_on": "2026-11-25"
+      },
+      {
+        "status": "resumed",
+        "after": "registry",
+        "on": "2026-11-25",
+        "waiting_for": "user_agent_rules_review",
+        "next_foundation_phase": "agents",
+        "resumed_on": "2026-11-25"
       }
     ]
   },
@@ -248,6 +285,45 @@
       "knowledge-base/08_arquitectura_propuesta.md",
       "knowledge-base/09_decisiones_y_supuestos.md",
       "knowledge-base/10_preguntas_abiertas.md"
+    ]
+  },
+  "skills": {
+    "recommended": [
+      {
+        "name": "java-springboot",
+        "source": "github/awesome-copilot",
+        "installs": 22341,
+        "fit": "Útil al implementar y revisar la API REST, las validaciones y la persistencia una vez iniciado el backend.",
+        "decision": "No instalar: el alcance acotado de C-01 se cubre con documentación oficial y pruebas automatizadas."
+      },
+      {
+        "name": "create-spring-boot-java-project",
+        "source": "github/awesome-copilot",
+        "installs": 9593,
+        "fit": "Ahorra el armado inicial, pero es de uso puntual y no debe fijar versiones ni agregar dependencias fuera del diseño aprobado.",
+        "decision": "No instalar: el arranque inicial se resuelve en el diseño aprobado de C-01."
+      },
+      {
+        "name": "webapp-testing",
+        "source": "anthropics/skills",
+        "installs": 213953,
+        "fit": "Sirve para verificar la pantalla mínima; el navegador disponible cubre esa revisión y no reemplaza las pruebas de integración con PostgreSQL.",
+        "decision": "No instalar: ya hay herramientas de navegador y la prueba de concurrencia se hace con PostgreSQL real."
+      }
+    ]
+  },
+  "agents": {
+    "created_by": "agent-instruction",
+    "files": [
+      "AGENTS.md",
+      "CLAUDE.md"
+    ],
+    "reglas_applied": [
+      "Datos ficticios. No usar datos reales de pacientes ni credenciales reales en el repositorio, las pruebas, las capturas o los ejemplos.",
+      "Carga y validación del turno. Recepción carga el turno del paciente desde el formulario. El servidor valida la sede autorizada, la pertenencia de los recursos, la duración por prestación, la franja y los solapamientos por odontólogo o sillón antes de guardar. El formulario confirma la creación o muestra el motivo del rechazo.",
+      "Pruebas obligatorias. Automatizar cada escenario de la especificación. Probar los envíos simultáneos con PostgreSQL real. No archivar si falla alguna prueba.",
+      "Alcance. Implementar solo C-01 para la entrega. Si una decisión o comportamiento no está en la especificación aprobada, volver a Propose antes de agregarlo.",
+      "Git. No hacer commits ni push sin autorización. Cada integrante registra su aporte con commits propios."
     ]
   },
   "roadmap": {

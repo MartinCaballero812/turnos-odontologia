@@ -4,6 +4,8 @@ Sistema de gestión de turnos y agenda para consultorios odontológicos (Argenti
 
 ## Arranque local del backend
 
+Si usás Windows, seguí [Arranque en Windows con PowerShell](#arranque-en-windows-con-powershell). Los bloques de terminal de esta primera sección son para macOS con `zsh`.
+
 Usá **Java 17**, **Node `24.19.0`** y **npm `11.17.0`**. En macOS, si tenés varias versiones de Java instaladas, elegí Java 17 en esta terminal:
 
 ```sh
@@ -138,3 +140,87 @@ Luego, en la Terminal de macOS (`zsh`), corré la suite completa:
 Las pruebas usan esquemas temporales en `odonclick_test`. Cubren la inicialización, los catálogos por sede y franja, la validación de los turnos y el guardado sin solapamientos. La suite de navegador levanta su propio servidor en un puerto libre, con reloj fijo en **25/11/2026** en Buenos Aires y casos de ejemplo del **1/12/2026**: no se cambia la fecha del equipo ni hace falta dejar `bootRun` en marcha. En la demo normal se usa la fecha actual.
 
 Para ejecutar solo las pruebas del alta y concurrencia, reemplazá el comando Gradle del bloque anterior por `./gradlew --no-daemon postgresTest --tests '*TurnosPostgresTest'`. Los dos casos simultáneos usan conexiones distintas en PostgreSQL 16 y comprueban, por separado, que compartir odontólogo o sillón produce un `201`, un `409` y un solo turno guardado.
+
+## Arranque en Windows con PowerShell
+
+### 1. Requisitos y compilación
+
+Instalá **JDK 17**, **Node.js `24.19.0`**, **npm `11.17.0`** y **PostgreSQL 16.x**. Abrí **PowerShell** en la raíz del repositorio, donde está `gradlew.bat`. No hace falta instalar Gradle ni levantar el frontend por separado.
+
+Si Windows usa otra versión de Java, configurá `JAVA_HOME` para esta terminal. Reemplazá el ejemplo por la carpeta real de instalación del JDK 17, **sin** agregar `\bin`:
+
+```powershell
+$env:JAVA_HOME = 'C:\ruta\al\jdk-17'
+```
+
+Comprobá las versiones y compilá:
+
+```powershell
+node --version
+npm.cmd --version
+.\gradlew.bat --version
+.\gradlew.bat build
+```
+
+El Wrapper tiene que mostrar Java 17. `build` compila y ejecuta las pruebas base, pero **no abre la aplicación**.
+
+### 2. Preparar PostgreSQL para la demo
+
+Comprobá que el servicio de PostgreSQL 16 esté iniciado en **Servicios** de Windows (`services.msc`) y escuche en `127.0.0.1:5432`. Abrí **SQL Shell (psql)**, conectate a la base `postgres` como administrador de PostgreSQL (habitualmente `postgres`) y ejecutá lo siguiente **solo si el rol y la base de demo no existen**:
+
+```sql
+CREATE ROLE odonclick_app LOGIN NOSUPERUSER NOCREATEROLE NOCREATEDB;
+\password odonclick_app
+CREATE DATABASE odonclick_demo OWNER odonclick_app;
+\q
+```
+
+Cuando `\password` te lo pida, elegí una contraseña local para `odonclick_app`. No la escribas en el repositorio. Si ya existen el rol y la base y están configurados, usá la contraseña de ese rol y no los vuelvas a crear.
+
+### 3. Levantar la aplicación
+
+En PowerShell, desde la raíz del repo, ejecutá:
+
+```powershell
+$clave = Read-Host 'Contraseña de odonclick_app' -AsSecureString
+try {
+    $env:SPRING_DATASOURCE_PASSWORD = [System.Net.NetworkCredential]::new('', $clave).Password
+    $env:APP_DEMO_RECEPCION_ID = '1'
+    .\gradlew.bat --no-daemon bootRun '--args=--spring.profiles.active=demo'
+} finally {
+    Remove-Item Env:SPRING_DATASOURCE_PASSWORD, Env:APP_DEMO_RECEPCION_ID -ErrorAction SilentlyContinue
+    Remove-Variable clave -ErrorAction SilentlyContinue
+}
+```
+
+Esperá a que Spring Boot arranque, dejá esa consola abierta y entrá a **<http://127.0.0.1:8080/>**. La demo usa la sede `1` y carga datos ficticios. Elegí una fecha hábil dentro del plazo de reserva. Para detenerla, presioná **Ctrl+C**.
+
+### Suite completa en Windows
+
+Prepará **`odonclick_test`** y **`odonclick_test_app`** con los [comandos SQL de la suite](#cómo-ejecutar-la-suite). No uses la base ni la contraseña de la demo. Desde la raíz del repo, instalá Chromium una vez:
+
+```powershell
+Push-Location frontend
+try {
+    npm.cmd ci
+    if ($LASTEXITCODE -ne 0) { throw 'Falló npm ci' }
+    npm.cmd exec -- playwright install chromium
+} finally {
+    Pop-Location
+}
+```
+
+Ejecutá las pruebas desde la raíz:
+
+```powershell
+$clavePruebas = Read-Host 'Contraseña de odonclick_test_app' -AsSecureString
+try {
+    $env:ODONCLICK_TEST_DB_PASSWORD = [System.Net.NetworkCredential]::new('', $clavePruebas).Password
+    .\gradlew.bat --no-daemon clean build postgresTest browserTest
+} finally {
+    Remove-Item Env:ODONCLICK_TEST_DB_PASSWORD -ErrorAction SilentlyContinue
+    Remove-Variable clavePruebas -ErrorAction SilentlyContinue
+}
+```
+
+No hace falta dejar la demo corriendo para probar: la suite levanta su propio servidor local.

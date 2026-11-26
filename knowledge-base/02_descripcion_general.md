@@ -9,6 +9,8 @@
 | Construcción del backend | Gradle | Por definir junto con el JDK. |
 | Persistencia | Hibernate y PostgreSQL | Por definir junto con Spring Boot. |
 
+La tabla registra mínimos generales del producto, no las versiones fijadas para la demo. **C-01** tiene como objetivo Java 17, Spring Boot `3.5.16`, Gradle Wrapper `8.14.8`, PostgreSQL `16.x` y TypeScript `7.0.2` con Node `24.19.0` y npm `11.17.0`. Hibernate y el controlador JDBC los gestiona Spring Boot. Se verificó el acceso por TCP a PostgreSQL `16.15` en el entorno local.
+
 ## Arquitectura general
 
 ```text
@@ -21,15 +23,16 @@ Una aplicación para una organización. Las sedes son ámbitos de operación y a
 
 No hay integraciones externas confirmadas para el MVP y ninguna es necesaria para el primer change. PostgreSQL local es infraestructura de persistencia, no una integración de negocio. WhatsApp, calendarios externos, Mercado Pago y ARCA son posibilidades posteriores, no requisitos.
 
-## API REST propuesta
+## API REST de C-01 y del MVP posterior
 
-Los nombres y contratos son orientativos; la especificación del change debe confirmarlos.
+El [diseño archivado de C-01](../openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/design.md#contrato-http) contiene el contrato HTTP detallado. La [especificación vigente](../openspec/specs/reserva-de-turnos/spec.md) describe el comportamiento implementado. Las operaciones posteriores no se implementan en C-01.
 
 | Operación | Propuesta | Alcance |
 |---|---|---|
-| Crear turno | `POST /api/turnos` | Primer change. Recibe sede, paciente, profesional, prestación, inicio y sillón opcional; la API calcula el fin. |
-| Consultar opciones del formulario | Lectura de catálogos filtrados por sede, por API o datos precargados | Solo lo necesario para la interfaz del change. No exige un CRUD de catálogos. |
-| Consultar turnos / agenda | Lectura filtrada por sede, profesional o sillón | MVP. Un listado mínimo para la demostración no implica completar las vistas por rol. |
+| Crear turno | `POST /api/turnos` | Primer change. Recibe paciente, profesional, prestación e inicio; toma la sede del contexto de recepción y calcula el fin. Radiografía no admite sillón; las demás prestaciones del catálogo inicial lo requieren. |
+| Obtener recepción y sede | `GET /api/contexto` | Contexto ficticio preasignado por el servidor; el formulario no cambia de sede. |
+| Consultar opciones del formulario | `GET /api/catalogos` | Catálogos de la sede; con `inicioLocal` se filtran odontólogos por la franja laboral de ese día. Las prestaciones indican si usan sillón. |
+| Consultar turnos / agenda | Lectura filtrada por sede, profesional o sillón | MVP posterior; no se incluye un listado de turnos en C-01. |
 | Cancelar o reprogramar | Acciones sobre turno existente | Changes posteriores del MVP. |
 
-Si se usa la propuesta REST, devolver un resultado de creación, un error por datos u horario inválidos y un conflicto distinguible por recurso. No prometer rutas, códigos de error ni mecanismo de sesión hasta el diseño del change.
+La API distingue creación, errores de datos o reglas de agenda y conflictos por recurso. Una falla técnica sin resultado concluyente no se muestra como conflicto.

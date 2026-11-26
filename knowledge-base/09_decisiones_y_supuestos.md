@@ -20,11 +20,19 @@
 
 ### DD-05 — Diferencial respaldado como oportunidad
 
-**Decisión de alcance:** priorizar el rechazo de conflictos por odontólogo y sillón, con sillón opcional e historial en el MVP, antes que automatización y funciones clínicas. **Evidencia:** el [informe de mercado](../docs/discovery/informe-discovery.md) distingue los avisos que dejan guardar de Codental, la sobrecarga interna configurable de AgendaPro y el historial de turno de Dentally. No comprobó que los competidores apliquen la misma combinación de restricciones. **Impacto:** no es un reclamo de exclusividad; el valor se demuestra con escenarios del producto.
+**Decisión inicial de alcance:** priorizar el rechazo de conflictos por odontólogo y sillón e historial en el MVP, antes que automatización y funciones clínicas. En ese momento se planteó el sillón como opcional; la regla vigente es DD-07. **Evidencia:** el [informe de mercado](../docs/discovery/informe-discovery.md) distingue los avisos que dejan guardar de Codental, la sobrecarga interna configurable de AgendaPro y el historial de turno de Dentally. No comprobó que los competidores apliquen la misma combinación de restricciones. **Impacto:** no es un reclamo de exclusividad; el valor se demuestra con escenarios del producto.
 
 ### DD-06 — Proteger la creación ante envíos simultáneos
 
-**Decisión confirmada por el equipo:** incluir la protección y una prueba de integración con PostgreSQL en el primer change. Si dos solicitudes son válidas por separado pero sus horarios se superponen y comparten odontólogo o sillón, una se guarda y la otra se rechaza. **Justificación:** puede haber doble envío o reintento desde recepción, sin que se necesiten dos personas en la misma sede. **Pendiente:** elegir el mecanismo y los códigos de error en el diseño.
+**Decisión confirmada por el equipo:** incluir la protección y una prueba de integración con PostgreSQL en el primer change. Si dos solicitudes son válidas por separado pero sus horarios se superponen y comparten odontólogo o sillón, una se guarda y la otra se rechaza. **Justificación:** puede haber doble envío o reintento desde recepción, sin que se necesiten dos personas en la misma sede. El mecanismo se definió en Propose y se resume en [arquitectura](08_arquitectura_propuesta.md#concurrencia-de-la-agenda).
+
+### DD-07 — El uso de sillón depende de la prestación
+
+Durante la revisión del mockup de C-01 se confirmó que radiografía se registra sin sillón; las demás prestaciones del catálogo inicial requieren elegir uno. Esta decisión sustituye la opcionalidad general citada en DD-05 y en el planteo inicial de Explore. Se conserva el informe de Discovery como antecedente.
+
+### DD-08 — Plazo de reserva y selección por franja en C-01
+
+Durante la revisión del mockup se confirmó el plazo de un mes calendario desde la fecha actual de Buenos Aires (RN-13). Recepción elige primero fecha y hora para ver quién trabaja en esa franja. El filtro de asignaciones no comprueba ocupación; el servidor sigue verificándola al guardar.
 
 ## Supuestos inferidos
 

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear turno — Odonclick</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/tokens.css">
+  <link rel="stylesheet" href="/assets/turno.css">
+  <script defer src="/assets/brand.js"></script>
+  <script type="module" src="/assets/turno.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span data-brand-name>Odonclick</span>
+        <img src="/assets/logo.svg" width="140" height="36" alt="Logo provisional">
+      </div>
+      <p class="context"><span>Recepción</span> <strong id="sede">Cargando sede…</strong></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="intro">
+      <p class="eyebrow">AGENDA / RECEPCIÓN</p>
+      <h1>Crear turno</h1>
+      <p>Elegí la fecha y la hora para ver qué odontólogos atienden en esa franja.</p>
+    </div>
+
+    <div class="workspace">
+      <form id="turno" class="panel" aria-labelledby="appointment-title" novalidate>
+        <div class="panel-heading">
+          <h2 id="appointment-title">Datos del turno</h2>
+          <p>Completá los datos del turno. El uso de sillón depende de la prestación.</p>
+        </div>
+        <fieldset class="fields" aria-label="Campos del turno" disabled>
+          <div class="field">
+            <label for="date">Fecha</label>
+            <input required id="date" type="date" aria-describedby="date-hint date-error">
+            <small id="date-hint">Elegí una fecha desde el calendario.</small>
+            <small class="field-error" id="date-error" hidden></small>
+          </div>
+          <div class="field">
+            <label for="time">Hora de inicio <span class="format">HH:MM</span></label>
+            <input required id="time" type="text" inputmode="numeric" placeholder="hh:mm" pattern="([01][0-9]|2[0-3]):[0-5][0-9]" aria-describedby="time-error">
+            <small class="field-error" id="time-error" hidden></small>
+          </div>
+          <div class="field full">
+            <label for="dentist">Odontólogo</label>
+            <select required disabled id="dentist" aria-describedby="dentist-hint dentist-error">
+              <option value="" disabled selected>Elegí fecha y hora primero</option>
+            </select>
+            <small id="dentist-hint" aria-live="polite">Se mostrarán quienes atienden en esa franja.</small>
+            <small class="field-error" id="dentist-error" hidden></small>
+          </div>
+          <div class="field">
+            <label for="patient">Paciente</label>
+            <select required id="patient" aria-describedby="patient-hint patient-error">
+              <option value="" disabled selected>Seleccioná un paciente</option>
+            </select>
+            <small id="patient-hint">Seleccioná un paciente ficticio ya cargado.</small>
+            <small class="field-error" id="patient-error" hidden></small>
+          </div>
+          <div class="field">
+            <label for="service">Prestación</label>
+            <select required id="service" aria-describedby="service-error">
+              <option value="" disabled selected>Seleccioná una prestación</option>
+            </select>
+            <small class="field-error" id="service-error" hidden></small>
+          </div>
+          <div class="field full">
+            <label for="chair">Sillón</label>
+            <select id="chair" disabled aria-describedby="chair-hint chair-error">
+              <option value="" disabled selected>Elegí una prestación primero</option>
+            </select>
+            <small id="chair-hint" aria-live="polite">Se habilita si la prestación usa sillón.</small>
+            <small class="field-error" id="chair-error" hidden></small>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" disabled>Guardar turno</button>
+        </div>
+      </form>
+
+      <aside class="side" aria-label="Información de la cita">
+        <section class="panel outcome" aria-labelledby="result-title">
+          <p class="eyebrow">ESTADO DE LA CITA</p>
+          <div id="result" data-state="inicio" role="status" aria-live="polite" aria-atomic="true">
+            <h2 id="result-title">Sin guardar</h2>
+            <p id="result-message">El resultado de la solicitud aparecerá acá cuando guardes el turno.</p>
+            <dl id="receipt" hidden>
+              <div><dt>Paciente</dt><dd id="receipt-patient"></dd></div>
+              <div><dt>Odontólogo</dt><dd id="receipt-dentist"></dd></div>
+              <div><dt>Horario</dt><dd id="receipt-time"></dd></div>
+              <div><dt>Sillón</dt><dd id="receipt-chair"></dd></div>
+            </dl>
+          </div>
+        </section>
+        <section class="schedule" aria-labelledby="schedule-title">
+          <h2 id="schedule-title">Horario de la sede</h2>
+          <p>Lunes a viernes, salvo cierres registrados.</p>
+          <dl>
+            <div><dt>Mañana</dt><dd>08:30–13:00</dd></div>
+            <div><dt>Tarde</dt><dd>16:00–21:00</dd></div>
+          </dl>
+          <p>La cita y su pausa de 10 minutos deben caber en la franja asignada al odontólogo.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <footer class="wrap">Odonclick · Demo local con datos ficticios</footer>
+</body>
+</html>

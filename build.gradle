@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.16'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+def npm = System.getProperty('os.name').startsWith('Windows') ? 'npm.cmd' : 'npm'
+def frontend = layout.projectDirectory.dir('frontend')
+def frontendOutput = layout.buildDirectory.dir('frontend')
+
+tasks.register('installFrontend', Exec) {
+    workingDir frontend
+    commandLine npm, 'ci', '--no-audit', '--no-fund'
+    inputs.files(frontend.file('package.json'), frontend.file('package-lock.json'))
+    outputs.dir(frontend.dir('node_modules'))
+}
+
+tasks.register('compileFrontend', Exec) {
+    dependsOn 'installFrontend'
+    workingDir frontend
+    commandLine npm, 'run', 'build'
+    inputs.files(frontend.file('package.json'), frontend.file('package-lock.json'), frontend.file('tsconfig.json'))
+    inputs.dir(frontend.dir('src'))
+    outputs.dir(frontendOutput)
+}
+
+tasks.named('processResources') {
+    dependsOn 'compileFrontend'
+    from(frontendOutput) { into 'static' }
+    from(frontend.dir('public')) { into 'static' }
+    from(files('design-system/tokens.css', 'design-system/brand.js', 'design-system/assets/logo.svg')) {
+        into 'static/assets'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform {
+        excludeTags 'postgres', 'browser'
+    }
+}
+
+tasks.register('browserTest', Test) {
+    group = 'verification'
+    description = 'Verifica el formulario en Chromium contra PostgreSQL aislado.'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform {
+        includeTags 'browser'
+    }
+    outputs.upToDateWhen { false }
+}
+
+tasks.register('postgresTest', Test) {
+    group = 'verification'
+    description = 'Ejecuta las pruebas contra la base aislada de PostgreSQL.'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform {
+        includeTags 'postgres'
+    }
+    outputs.upToDateWhen { false }
+}

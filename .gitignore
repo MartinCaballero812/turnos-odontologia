@@ -2,3 +2,7 @@
 *.key
 node_modules/
 .DS_Store
+/.gradle/
+/build/
+/frontend/playwright-report/
+/frontend/test-results/

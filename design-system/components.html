@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base visual — Odonclick</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="tokens.css">
+  <script defer src="brand.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font: var(--font-body-size)/1.5 var(--font-body); }
+    .wrap { width: min(100% - 2 * var(--space-5), 68rem); margin-inline: auto; }
+    header { background: var(--surface); border-bottom: 1px solid var(--line); }
+    .top { min-height: 4.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding-block: var(--space-3); }
+    .brand { display: flex; align-items: center; gap: var(--space-3); font-weight: 750; }
+    .brand img { width: 8.75rem; height: 2.25rem; }
+    .eyebrow, .revision, .number, .swatch code { font: .78rem/1.5 var(--font-detail); letter-spacing: .045em; }
+    .revision, .eyebrow, .number { color: var(--accent-ink); }
+    .intro { padding-block: var(--space-7) var(--space-6); border-bottom: 1px solid var(--line); }
+    h1 { margin: var(--space-2) 0; letter-spacing: -.06em; font-size: var(--font-title); line-height: 1.02; }
+    h2 { margin: 0 0 var(--space-4); font-size: 1.24rem; letter-spacing: -.02em; }
+    p { margin: 0; }
+    .intro p, .muted { color: var(--muted); }
+    .palette { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); }
+    .swatch { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .dot { width: .9rem; height: .9rem; border-radius: .25rem; border: 1px solid var(--control-line); }
+    .dot.accent { background: var(--accent); border-color: var(--accent); }
+    .dot.canvas { background: var(--canvas); }
+    .dot.ink { background: var(--ink); border-color: var(--ink); }
+    .grid { display: grid; grid-template-columns: 1fr 1.13fr; gap: var(--space-5); padding-block: var(--space-5); }
+    .panel { border: 1px solid var(--line); border-radius: var(--radius-panel); box-shadow: var(--shadow-panel); background: var(--surface); padding: var(--space-5); min-width: 0; }
+    .number { display: block; margin-bottom: var(--space-1); }
+    .sede { display: inline-block; padding: var(--space-1) var(--space-3); border-radius: var(--radius-control); background: var(--accent-subtle); color: var(--accent-ink); font-size: var(--font-small); font-weight: 750; margin-bottom: var(--space-4); }
+    label { display: block; margin-bottom: var(--space-2); font-weight: 680; }
+    input, button { font: inherit; border-radius: var(--radius-control); }
+    input { display: block; width: 100%; min-height: 2.75rem; padding: var(--space-2) var(--space-3); color: var(--ink); background: var(--surface); border: 1px solid var(--control-line); font-variant-numeric: tabular-nums; }
+    :is(input, button):focus-visible, .panel:not(:focus-within) .focus-example { outline: var(--focus-width) solid var(--focus-color); outline-offset: var(--focus-offset); }
+    button { min-height: 2.75rem; color: var(--surface); background: var(--accent); border: 1px solid transparent; font-weight: 720; padding: var(--space-2) var(--space-4); transition: background-color var(--motion-fast) var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { button:hover { background: var(--accent-hover); } }
+    .hint { font-size: var(--font-small); margin-block: var(--space-3) var(--space-4); }
+    .messages { display: grid; gap: var(--space-3); }
+    .message { border: 1px solid; border-inline-start-width: 4px; border-radius: var(--radius-control); padding: var(--space-2) var(--space-3); }
+    .message strong { display: block; }
+    .message p { font-size: var(--font-small); margin-top: var(--space-1); }
+    .success { background: var(--accent-subtle); border-color: var(--accent-line); border-inline-start-color: var(--accent); color: var(--accent-ink); }
+    .error { background: var(--error-surface); border-color: var(--error-line); border-inline-start-color: var(--error-ink); color: var(--error-ink); }
+    .warning { background: var(--warning-surface); border-color: var(--warning-line); border-inline-start-color: var(--warning-ink); color: var(--warning-ink); }
+    footer { border-top: 1px solid var(--line); padding-block: var(--space-4) var(--space-5); font-size: var(--font-small); }
+    @media (max-width: 44rem) {
+      .wrap { width: calc(100% - 2 * var(--space-4)); }
+      .intro { padding-block: var(--space-6) var(--space-5); }
+      .grid { grid-template-columns: 1fr; gap: var(--space-4); }
+      .panel { padding: var(--space-4); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <div class="brand">
+        <span data-brand-name>Odonclick</span>
+        <img src="assets/logo.svg" alt="Logo provisional" width="140" height="36">
+      </div>
+      <span class="revision">REV. 01 · PARA REVISIÓN</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">REFERENCIA DE COMPONENTES</p>
+      <h1 id="page-title">Base visual de recepción</h1>
+      <p>Una referencia para identificar la sede, revisar los controles y entender el resultado de una acción.</p>
+      <div class="palette" aria-label="Colores de referencia">
+        <span class="swatch"><span class="dot accent" aria-hidden="true"></span><code>#0F766E</code></span>
+        <span class="swatch"><span class="dot canvas" aria-hidden="true"></span><code>#F3F7F5</code></span>
+        <span class="swatch"><span class="dot ink" aria-hidden="true"></span><code>#172923</code></span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel" aria-labelledby="controls-title">
+        <span class="number" aria-hidden="true">01 / CONTROLES</span>
+        <h2 id="controls-title">Sede, campo y acción</h2>
+        <p class="sede">SEDE 1</p>
+        <label for="time-example">Hora de inicio</label>
+        <input class="focus-example" id="time-example" type="text" inputmode="numeric" value="10:00" aria-describedby="time-hint">
+        <p class="hint muted" id="time-hint">El contorno muestra el foco de teclado. La sede se informa sin selector.</p>
+        <button type="button" aria-describedby="action-hint">Guardar turno</button>
+        <p class="hint muted" id="action-hint">Botón de muestra: no registra datos.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="messages-title">
+        <span class="number" aria-hidden="true">02 / ESTADOS</span>
+        <h2 id="messages-title">Mensajes de ejemplo</h2>
+        <div class="messages">
+          <div class="message success">
+            <strong>Turno guardado</strong>
+            <p>Martes 1 de diciembre · 10:00–10:30 · SEDE 1.</p>
+          </div>
+          <div class="message error">
+            <strong>El odontólogo no está disponible</strong>
+            <p>Está ocupado de 10:00 a 10:40, incluida la pausa.</p>
+          </div>
+          <div class="message warning">
+            <strong>No se pudo confirmar si el turno se guardó.</strong>
+            <p>Antes de volver a cargarlo, verificá si quedó registrado.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="wrap muted">Referencia visual · Datos ficticios · No es el formulario final de C-01</footer>
+</body>
+</html>

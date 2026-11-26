@@ -14,7 +14,7 @@
       "agents"
     ],
     "stop_after": "agents",
-    "resume_condition": "El ciclo OPSX de la Etapa 6 requiere una decisión explícita de continuar.",
+    "resume_condition": "El ciclo OPSX de la Etapa 6 se inició con autorización y quedó archivado.",
     "prerequisites": {
       "openspec-init": {
         "status": "done",
@@ -57,8 +57,10 @@
         "reviewed_on": "2026-11-24"
       },
       "visual-design": {
-        "variant": "deferred",
-        "status": "deferred",
+        "variant": "system-and-mockups",
+        "status": "done",
+        "decided_on": "2026-11-25",
+        "completed_on": "2026-11-25",
         "requires": [],
         "outputs": [
           "design-system/README.md"
@@ -136,10 +138,11 @@
       }
     },
     "pause": {
-      "status": "paused",
+      "status": "resumed",
       "after": "agents",
       "on": "2026-11-25",
-      "waiting_for": "user_continue_stage_6"
+      "waiting_for": "user_continue_stage_6",
+      "resumed_on": "2026-11-25"
     },
     "pause_history": [
       {
@@ -183,6 +186,25 @@
         "resumed_on": "2026-11-25"
       }
     ]
+  },
+  "opsx": {
+    "stage": 6,
+    "change_id": "C-01",
+    "change": "crear-turno-sin-solapamientos",
+    "schema": "spec-driven",
+    "status": "archived",
+    "archived_on": "2026-11-26",
+    "archive_path": "openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos",
+    "main_spec": "openspec/specs/reserva-de-turnos/spec.md",
+    "verification": {
+      "status": "passed",
+      "scenarios": 27,
+      "tasks_completed": 11,
+      "tasks_total": 11,
+      "evidence": "openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/verify.md"
+    },
+    "review_decision": "Continuar a Archive con la especificación vigente sincronizada.",
+    "next_stage": 7
   },
   "discovery": {
     "created_by": "discovery-research",
@@ -325,6 +347,13 @@
       "Alcance. Implementar solo C-01 para la entrega. Si una decisión o comportamiento no está en la especificación aprobada, volver a Propose antes de agregarlo.",
       "Git. No hacer commits ni push sin autorización. Cada integrante registra su aporte con commits propios."
     ]
+  },
+  "visual_design": {
+    "created_by": "design-system",
+    "mode": "system-and-mockups",
+    "status": "approved",
+    "revision": 1,
+    "path": "design-system/README.md"
   },
   "roadmap": {
     "created_by": "roadmap-generator",

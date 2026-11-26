@@ -79,23 +79,25 @@ Reparto orientativo, no asignación de integrantes. Para la entrega, la revisió
 
 ### [C-01] `crear-turno-sin-solapamientos`
 
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` implementado, verificado y archivado el 26/11/2026.
+- **Cierre**: [change archivado](openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/proposal.md), [especificación vigente](openspec/specs/reserva-de-turnos/spec.md) y [evidencia de Verify](openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/verify.md). Pasaron los 27 escenarios; se aprobó archivar tras sincronizar la especificación.
 - **Scope**:
-  - Preparar el arranque local reproducible con Spring Boot REST, Gradle, Hibernate, PostgreSQL y TypeScript vanilla. Crear solo el esquema y los datos ficticios necesarios: sedes, franjas, odontólogos, sillones, prestaciones, pacientes y turnos.
-  - Resolver en el diseño la identidad local de recepción. Validar su sede en el servidor y rechazar un odontólogo o sillón de otra sede; no confiar en el valor que manda el formulario.
-  - Implementar la creación de turnos (`POST /api/turnos` como ruta propuesta): odontólogo obligatorio, sillón opcional y fin calculado por prestación. La cita y la pausa de **10 minutos** deben caber en la misma franja.
-  - Guardar un solo turno si llegan dos solicitudes simultáneas incompatibles que serían válidas por separado. Devolver éxito para una y conflicto para la otra. Definir en OpenSpec el mecanismo, los códigos de error y cómo mostrar recurso y franja sin exponer datos del otro paciente.
-  - Incorporar una pantalla mínima de creación con confirmación y mensajes de rechazo. No incluye calendario completo ni administración de catálogos.
-  - Probar: creación válida; conflictos separados por odontólogo y sillón; cita sin sillón; inicio justo al terminar la cita o su pausa; cierre con cita hasta 12:50 o 12:55; acceso fuera de sede y concurrencia con PostgreSQL (un éxito, un rechazo y un solo registro).
-  - Precisar versiones, día y zona horaria de la demo antes de implementar. Verificar que se pueda ejecutar y probar desde el README. No incluye cancelar, reprogramar, desplegar ni habilitar reserva pública.
+  - Preparar el arranque local reproducible con Spring Boot REST, Gradle, Hibernate, PostgreSQL y TypeScript vanilla. Precargar solo los datos ficticios necesarios, incluidos franjas de sede, asignaciones de odontólogos y una fecha de cierre de ejemplo.
+  - Usar un contexto ficticio de recepción con sede preasignada configurada en el servidor, sin selector de sede ni sistema de cuentas. Rechazar odontólogos o sillones ajenos a la sede.
+  - Implementar la creación de turnos (`POST /api/turnos`): odontólogo obligatorio y fin calculado por prestación. Radiografía no admite sillón; para las demás prestaciones del catálogo inicial se exige elegir uno. La cita y la pausa de **10 minutos** deben caber en la misma franja de apertura de la sede y de trabajo del odontólogo. No se agenda en fin de semana ni en un cierre precargado; la disponibilidad de asistentes no condiciona la reserva.
+  - Validar el plazo de reserva: desde hoy hasta un mes calendario después, inclusive, según `America/Argentina/Buenos_Aires`.
+  - Guardar un solo turno si llegan dos solicitudes simultáneas incompatibles que serían válidas por separado. Devolver éxito para una y conflicto para la otra, sin exponer datos del otro paciente.
+  - Incorporar una pantalla mínima de escritorio. Se eligen fecha y hora antes del odontólogo; la lista solo muestra quienes trabajan en esa franja y el servidor comprueba los solapamientos al guardar. El sillón depende de la prestación. No incluye consulta de agenda ni administración de catálogos.
+  - Probar los bordes del plazo y de las franjas, el filtro de odontólogos, las combinaciones de prestación y sillón, los rechazos por sede y los conflictos por cada recurso. Verificar concurrencia con PostgreSQL: un éxito, un rechazo y un solo registro.
+  - Usar el martes 1/12/2026 como fecha de datos ficticios para las pruebas con reloj controlado; la aplicación calcula el plazo con la fecha actual. Seguir las [versiones y decisiones del diseño](openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/design.md) y verificar que la demo y la suite se puedan ejecutar desde el README. No incluye cancelar, reprogramar, reasignar, editar horarios, desplegar ni habilitar reserva pública.
 - **Dependencias**: ninguna
 - **Governance**: CRITICO
 - **Leer antes**:
   - [`knowledge-base/03_actores_y_roles.md`](knowledge-base/03_actores_y_roles.md) — permisos de recepción.
-  - [`knowledge-base/05_reglas_de_negocio.md`](knowledge-base/05_reglas_de_negocio.md) — RN-01 a RN-05, RN-07 a RN-10, RN-AU-01.
+  - [`knowledge-base/05_reglas_de_negocio.md`](knowledge-base/05_reglas_de_negocio.md) — RN-01 a RN-05, RN-07 a RN-13, RN-AU-01.
   - [`knowledge-base/06_funcionalidades.md`](knowledge-base/06_funcionalidades.md#us-001--crear-un-turno-sin-solapamientos-primer-change) — US-001.
   - [`knowledge-base/08_arquitectura_propuesta.md`](knowledge-base/08_arquitectura_propuesta.md) — concurrencia y entorno local.
-  - [`knowledge-base/10_preguntas_abiertas.md`](knowledge-base/10_preguntas_abiertas.md) — decisiones que faltan para el diseño.
+  - [`knowledge-base/10_preguntas_abiertas.md`](knowledge-base/10_preguntas_abiertas.md) — decisiones cerradas y pendientes operativos.
 
 ## FASE 2 — Completar la operación del MVP
 
@@ -118,6 +120,7 @@ Reparto orientativo, no asignación de integrantes. Para la entrega, la revisió
 - **Scope**:
   - Agregar la consulta diaria de recepción, limitada a su sede, para seleccionar turnos existentes. La vista se reutiliza para cancelar.
   - Agregar la acción de reprogramación en API e interfaz de recepción. Validar la nueva ocupación con las mismas reglas de agenda; conservar el turno anterior si el intento se rechaza.
+  - Ante un cambio de franja laboral, permitir que recepción reprograme con el mismo odontólogo o mantenga el horario y reasigne la cita a otro odontólogo disponible y habilitado para esa franja.
   - Guardar evidencia del horario original y liberar la ocupación anterior al completar la operación. Incorporar la persistencia de historial necesaria si aún no existe.
   - Probar reprogramación válida, conflicto sin pérdida del turno original y tentativa fuera de sede.
 - **Dependencias**: C-02
@@ -178,8 +181,8 @@ Reparto orientativo, no asignación de integrantes. Para la entrega, la revisió
 
 - **Estado**: `[ ]` pendiente
 - **Scope**:
-  - Agregar acciones administrativas y pantalla para registrar sedes y configurar franjas de atención. Reutilizar los modelos básicos de C-01 y no fijar en código el número de sedes.
-  - Probar configuración por una cuenta de administración, franjas válidas y ausencia de permisos en recepción. Precisar en diseño el efecto de cambiar una franja que ya tiene turnos.
+  - Agregar acciones administrativas y pantalla para registrar sedes, configurar franjas de apertura y cargar feriados u otros cierres. Reutilizar los modelos básicos de C-01 y no fijar en código el número de sedes.
+  - Permitir modificar el horario de apertura cuando la franja afectada no tenga citas pendientes y no aceptar nuevas reservas en esa franja hasta configurar el nuevo horario. Probar configuración válida y ausencia de permisos en recepción.
 - **Dependencias**: C-02
 - **Governance**: ALTO
 - **Leer antes**:
@@ -193,6 +196,7 @@ Reparto orientativo, no asignación de integrantes. Para la entrega, la revisió
 - **Estado**: `[ ]` pendiente
 - **Scope**:
   - Habilitar edición administrativa de los catálogos de sillones y odontólogos por sede. Reutilizar los recursos mínimos de C-01 y garantizar que cada registro pertenece a una sola sede.
+  - Permitir que administración asigne o cambie la franja de trabajo del odontólogo por día hábil, respetando como máximo una franja por día. El administrador no reasigna ni reprograma citas.
   - Probar la pertenencia a sede, permisos administrativos y conservación de las referencias de citas ya guardadas al editar catálogos. No otorgar al administrador acciones sobre turnos.
 - **Dependencias**: C-07
 - **Governance**: ALTO
@@ -207,7 +211,7 @@ Reparto orientativo, no asignación de integrantes. Para la entrega, la revisió
 - **Estado**: `[ ]` pendiente
 - **Scope**:
   - Habilitar edición administrativa del catálogo de prestaciones y su duración. Validar minutos positivos y confirmar en diseño cómo se preserva la duración de los turnos existentes al modificar una prestación.
-  - Probar que recepción no puede editar el catálogo ni variar la duración de una cita puntual. No agregar obligatoriedad de sillón por prestación.
+  - Probar que recepción no puede editar el catálogo ni variar la duración de una cita puntual. Conservar la regla de uso de sillón por prestación definida para C-01; editar esa regla no forma parte de C-09.
 - **Dependencias**: C-02
 - **Governance**: ALTO
 - **Leer antes**:

@@ -20,7 +20,9 @@
 | Administrador | No gestiona turnos en el MVP | Configurar sedes, sillones, odontólogos, prestaciones y usuarios | Configuración de todas las sedes de Odonclick. |
 | Paciente | Ninguno | Ninguna | Sin acceso en el MVP. |
 
-La sede elegida en la interfaz no concede permisos. El backend debe validar el rol y ámbito de cada operación. El mecanismo exacto para representar la identidad de recepción en una demo local está [pendiente](10_preguntas_abiertas.md); datos ficticios no significa acceso público.
+En el MVP, el administrador crea la cuenta de recepción y le asigna una sola sede. Al iniciar sesión, la persona de recepción entra directamente al espacio de esa sede, sin selector para cambiarla. Solo consulta y gestiona los turnos de su sede y el formulario solo ofrece odontólogos y sillones de esa sede.
+
+El servidor determina la sede a partir del acceso de recepción y valida el rol y el ámbito de cada operación. Para C-01 la demo selecciona una recepción ficticia con sede preasignada mediante `APP_DEMO_RECEPCION_ID`, sin implementar el inicio de sesión ni el panel administrativo.
 
 ## Rutas públicas
 

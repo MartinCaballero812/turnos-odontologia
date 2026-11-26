@@ -15,7 +15,7 @@ La entrega se ejecutará **en local**. La estructura y las técnicas de esta pá
 
 RN-03 exige rechazar conflictos con turnos ya guardados y proteger el primer change contra solicitudes simultáneas incompatibles. Ambos casos consideran el intervalo completo, incluida la pausa, y el odontólogo y el sillón si está asignado. Consultar disponibilidad antes de guardar no alcanza por sí solo: dos peticiones podrían consultar antes de que cualquiera guarde.
 
-**Mecanismo propuesto, no decidido:** en una transacción, bloquear primero la fila del odontólogo y después la del sillón, si existe. Consultar los turnos que ocupan esos recursos **después** de adquirir los bloqueos, y guardar solo si no hay conflicto. Con `READ COMMITTED`, esa consulta posterior puede ver una reserva concurrente que ya se confirmó. Si se adopta esta opción, las operaciones que cambien la ocupación deben compartir el protocolo y usar un orden estable. Bloquear solo turnos existentes no cubre el caso de una agenda todavía vacía.
+**Mecanismo implementado en C-01** ([diseño archivado](../openspec/changes/archive/2026-11-26-crear-turno-sin-solapamientos/design.md#transacción-y-concurrencia)): en una transacción `READ COMMITTED`, bloquear primero la fila del odontólogo y después la del sillón, si la prestación lo usa. Consultar la ocupación **después** de adquirir los bloqueos y guardar solo si no hay conflicto. La consulta posterior puede ver una reserva concurrente que ya se confirmó. Las operaciones futuras que cambien la ocupación deberán compartir el protocolo y el orden. Bloquear solo turnos existentes no cubre una agenda todavía vacía.
 
 **Prueba de integración obligatoria con PostgreSQL:** partir de una agenda libre en el intervalo de prueba y enviar en paralelo al backend dos solicitudes válidas por separado que se superponen y comparten un recurso. Al terminar, verificar una creación exitosa, un rechazo por conflicto y un solo turno guardado. La prueba no depende del mecanismo elegido ni del orden de llegada. Referencias técnicas: [bloqueos de filas](https://www.postgresql.org/docs/current/explicit-locking.html#LOCKING-ROWS) y [aislamiento de transacciones](https://www.postgresql.org/docs/current/transaction-iso.html#XACT-READ-COMMITTED).
 
@@ -31,13 +31,13 @@ turnos-odontologia/
 └── openspec/          # Especificaciones y cambios
 ```
 
-El README de entrega deberá explicar requisitos, preparación de PostgreSQL local, carga de datos ficticios, arranque y ejecución de pruebas. JDK, versiones y herramienta de compilación del frontend quedan pendientes de selección.
+El [README de entrega](../README.md) explica requisitos, preparación de PostgreSQL local, carga de datos ficticios, arranque y ejecución de pruebas. Las versiones se resumen en la [descripción general](02_descripcion_general.md#stack-tecnológico). Spring Boot usa PostgreSQL `16.15` en el entorno verificado, con bases y cuentas de demo y de pruebas separadas.
 
 ## Seguridad
 
-- **Autenticación:** la separación por rol y sede está confirmada; el mecanismo de identidad de la demostración y el del MVP quedan pendientes de diseño. No confiar en un rol o sede enviados libremente por el navegador.
+- **Identidad de la demo:** el servidor selecciona un usuario ficticio de recepción y su sede mediante `APP_DEMO_RECEPCION_ID`. Es un contexto local, no un sistema de autenticación. No confiar en un rol o sede enviados por el navegador. El acceso con cuentas corresponde al MVP posterior.
 - **Autorización:** verificar en el backend cada operación y no mostrar información de recursos ajenos en los errores.
-- **Validación:** cotejar IDs de catálogos, sede, horario y duración con el servidor. La interfaz no decide si un turno puede persistirse.
+- **Validación:** cotejar IDs, pertenencia a sede, plazo, franja asignada, duración y uso de sillón según prestación. El filtro de odontólogos y los avisos del formulario no reemplazan la decisión del servidor.
 - **Datos y secretos:** solo datos ficticios. No versionar contraseñas, archivos `.env` con valores reales ni volcados; evitar datos de pacientes en logs.
 - **Entorno:** planteado para ejecución local; no se requiere abrir un servicio a Internet.
 
@@ -45,6 +45,7 @@ El README de entrega deberá explicar requisitos, preparación de PostgreSQL loc
 
 | Variable | Propósito | Ejemplo ficticio | Sensible |
 |---|---|---|---|
+| `APP_DEMO_RECEPCION_ID` | Seleccionar el contexto ficticio de recepción al iniciar la demo | Identificador de la recepción precargada. | No. |
 | `SPRING_DATASOURCE_URL` | Conexión a PostgreSQL local | `jdbc:postgresql://localhost:5432/odonclick` | No, si no incluye credenciales. |
 | `SPRING_DATASOURCE_USERNAME` | Usuario local de la aplicación | `odonclick_dev` | No es contraseña; configurar fuera del código. |
 | `SPRING_DATASOURCE_PASSWORD` | Credencial local | No versionar el valor. | Sí. |
